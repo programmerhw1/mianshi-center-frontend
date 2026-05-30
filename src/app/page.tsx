@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Button } from "antd";
+// <Image src={`/assets/logo.png`} alt={alt} width="64" height="64" />;
 
 export default function Home() {
   return (
@@ -97,3 +98,8 @@ export default function Home() {
     </main>
   );
 }
+
+
+// export default function Page({ params }: { params: { questionId: string } }) {
+//   return <div>我的题目: {params.questionId}</div>;
+// }

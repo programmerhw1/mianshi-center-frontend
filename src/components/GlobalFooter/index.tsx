@@ -6,7 +6,7 @@ import "./index.css";
  *
  * @author yupi
  */
-export default function GlobalFooter() {
+export default function Index() {
   const currentYear = new Date().getFullYear();
 
   return (

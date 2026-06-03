@@ -3,10 +3,13 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 import BasicLayout from "@/layouts/BasicLayout";
 import React, { useCallback, useEffect } from "react";
-import store, { AppDispatch } from "@/stores/idnex";
+import store, { AppDispatch } from "@/stores";
 import { Provider, useDispatch } from "react-redux";
 import { getLoginUserUsingGet } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
+import AccessLayout from "@/access/AccessLayout";
+import ACCESS_ENUM from "@/access/accessEnum";
+import HomePage from "@/app/page";
 
 /**
  * 执行初始化逻辑的布局（多封装一层）使用的是自定义高级组件
@@ -42,7 +45,12 @@ const InitLayout: React.FC<
     } else {
       // todo 测试代码，实际可删除
       // setTimeout(() => {
-      //   const testUser = { userName: "测试登录", id: 1 };
+      //   const testUser = {
+      //     userName: "测试登录",
+      //     id: 1,
+      //     // userAvatar: "/assets/notLoginUser.png",
+      //     // userRole: ACCESS_ENUM.ADMIN
+      //   };
       //   dispatch(setLoginUser(testUser));
       // }, 3000);
     }
@@ -65,7 +73,9 @@ export default function RootLayout({
         <AntdRegistry>
           <Provider store={store}>
             <InitLayout>
-              <BasicLayout>{children}</BasicLayout>
+              <BasicLayout>
+                <AccessLayout>{children}</AccessLayout>
+              </BasicLayout>
             </InitLayout>
           </Provider>
         </AntdRegistry>

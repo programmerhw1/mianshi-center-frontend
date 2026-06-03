@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import AccessEnum from "@/access/accessEnum";
 
 // 默认用户
 const DEFAULT_USER: API.LoginUserVO = {
@@ -6,6 +7,8 @@ const DEFAULT_USER: API.LoginUserVO = {
   userProfile: "暂无简介",
   userAvatar: "/assets/notLoginUser.png",
   userRole: "guest",
+  //枚举类，将全局状态中的默认用户权限改为“未登录"：
+  // userRole: AccessEnum.NOT_LOGIN,
 };
 
 /**

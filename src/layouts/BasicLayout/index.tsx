@@ -1,42 +1,42 @@
 "use client";
+import "./index.css";
 import {
   GithubFilled,
   LogoutOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import type { ProSettings } from "@ant-design/pro-components";
 import { ProLayout } from "@ant-design/pro-components";
-import { Divider, Dropdown, Input, theme } from "antd";
+import { Dropdown, Input } from "antd";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import GlobalFooter from "@/components/GlobalFooter";
-import menus from "@/config/menus";
+import Index from "@/components/GlobalFooter";
+import menus from "../../../config/menus";
 import { listQuestionBankVoByPageUsingPost } from "@/api/questionBankController";
-import { RootState } from "@/stores/idnex";
+import { RootState } from "@/stores";
 import { useSelector } from "react-redux";
+import getAccessibleMenus from "@/access/menuAccess";
 
-const MenuCard = () => {
-  const { token } = theme.useToken();
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Divider
-        style={{
-          height: "1.5em",
-        }}
-        type="vertical"
-      />
-    </div>
-  );
-};
+// const MenuCard = () => {
+//   const { token } = theme.useToken();
+//   return (
+//     <div
+//       style={{
+//         display: "flex",
+//         alignItems: "center",
+//       }}
+//     >
+//       <Divider
+//         style={{
+//           height: "1.5em",
+//         }}
+//         type="vertical"
+//       />
+//     </div>
+//   );
+// };
 
-const Demo = () => {
-
+const Demo = ({ children }: { children?: React.ReactNode }) => {
   const loginUser = useSelector((state: RootState) => state.loginUser);
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
 
@@ -44,6 +44,7 @@ const Demo = () => {
     <div
       id="test-pro-layout"
       style={{
+
         height: "100vh",
       }}
     >
@@ -86,7 +87,7 @@ const Demo = () => {
             );
           },
         }}
-        footerRender={() => <GlobalFooter />}
+        footerRender={() => <Index />}
         actionsRender={(props) => {
           if (props.isMobile) return [];
           return [
@@ -143,6 +144,7 @@ const Demo = () => {
           //     name: "题库",
           //   },
           // ];
+          // return getAccessibleMenus(loginUser,menus);
           return menus;
         }}
         // 菜单渲染
@@ -176,11 +178,12 @@ const Demo = () => {
           return (
             <>
               {defaultDom}
-              <MenuCard />
+              {/*<MenuCard />*/}
             </>
           );
         }}
       >
+        {children}
       </ProLayout>
     </div>
   );
@@ -195,7 +198,7 @@ export default function BasicLayout({ children }: Props) {
   });
   return (
     <div style={{ padding: 24 }}>
-      <Demo />
+      <Demo> {children}</Demo>
     </div>
   );
 }

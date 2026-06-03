@@ -16,7 +16,7 @@ const menus = [
     name: "题目",
   },
   {
-    name: "平台",
+    name: "面试鸭",
     path: "https://mianshiya.com",
     target: "_blank",
   },

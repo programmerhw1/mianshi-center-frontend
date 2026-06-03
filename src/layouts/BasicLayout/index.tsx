@@ -1,13 +1,11 @@
 "use client";
 import {
-  DoubleRightOutlined,
   GithubFilled,
   LogoutOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import type { ProSettings } from "@ant-design/pro-components";
 import { ProLayout } from "@ant-design/pro-components";
-import { css } from "@emotion/css";
 import { Divider, Dropdown, Input, theme } from "antd";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -15,6 +13,8 @@ import Link from "next/link";
 import GlobalFooter from "@/components/GlobalFooter";
 import menus from "@/config/menus";
 import { listQuestionBankVoByPageUsingPost } from "@/api/questionBankController";
+import { RootState } from "@/stores/idnex";
+import { useSelector } from "react-redux";
 
 const MenuCard = () => {
   const { token } = theme.useToken();
@@ -36,12 +36,8 @@ const MenuCard = () => {
 };
 
 const Demo = () => {
-  const settings: ProSettings | undefined = {
-    fixSiderbar: true,
-    layout: "top",
-    splitMenus: true,
-  };
 
+  const loginUser = useSelector((state: RootState) => state.loginUser);
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
 
   return (
@@ -69,9 +65,9 @@ const Demo = () => {
           type: "group",
         }}
         avatarProps={{
-          src: "/assets/logo.png",
+          src: loginUser.userAvatar || "/assets/logo.png",
           size: "small",
-          title: "卡卡",
+          title: loginUser.userName || "卡卡",
           render: (props, dom) => {
             return (
               <Dropdown
@@ -184,14 +180,14 @@ const Demo = () => {
             </>
           );
         }}
-        {...settings}
-      ></ProLayout>
+      >
+      </ProLayout>
     </div>
   );
 };
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 export default function BasicLayout({ children }: Props) {
   listQuestionBankVoByPageUsingPost({}).then((res) => {

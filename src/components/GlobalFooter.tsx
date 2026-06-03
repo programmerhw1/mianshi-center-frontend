@@ -11,10 +11,12 @@ export default function GlobalFooter() {
 
   return (
     <div className="global-footer">
-      <div>© {currentYear} 面试刷题平台</div>
+      <div>
+        © {currentYear} 面试中心平台
+      </div>
       <div>
         <a href="https://www.codefather.cn" target="_blank">
-          作者：编程导航 - 程序员鱼皮
+          作者：---程序员卡卡
         </a>
       </div>
     </div>

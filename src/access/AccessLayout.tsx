@@ -8,9 +8,6 @@ import React from "react";
 import { findAllMenuItemByPath } from "../../config/menus";
 import AccessEnum from "@/access/accessEnum";
 
-
-console.log("AccessLayout 文件加载了");
-
 /**
  * 统一权限校验拦截器
  * @param children
@@ -27,8 +24,8 @@ const AccessLayout: React.FC<
   const loginUser = useSelector((state: RootState) => state.loginUser);
   // 权限校验 获取当前路径需要的权限
   const menu = findAllMenuItemByPath(pathname);
-  console.log("menu", menu);
-  console.log("当前路径:", pathname);
+  // console.log("menu", menu);
+  // console.log("当前路径:", pathname);
   const needAccess = menu?.access ?? AccessEnum.NOT_LOGIN;
   const canAccess = checkAccess(loginUser, needAccess);
   if (!canAccess) {

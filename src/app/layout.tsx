@@ -49,7 +49,7 @@ const InitLayout: React.FC<
       //     userName: "测试登录",
       //     id: 1,
       //     // userAvatar: "/assets/notLoginUser.png",
-      //     // userRole: ACCESS_ENUM.ADMIN
+      //     userRole: ACCESS_ENUM.ADMIN
       //   };
       //   dispatch(setLoginUser(testUser));
       // }, 3000);

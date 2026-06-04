@@ -17,8 +17,8 @@ bun dev
 ![img.png](img.png)
 
 
-### 修改页面到自己想要的格局
 
-![img_1.png](img_1.png)
-#### 就先这样
 
+
+### 继续修改完成页面结构
+![img_2.png](img_2.png)

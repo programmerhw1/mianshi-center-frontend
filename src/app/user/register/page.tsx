@@ -35,8 +35,6 @@ const UserRegisterPage: React.FC = (props) => {
     }
   };
 
-
-
   return (
     <div id="userRegisterPage">
       <LoginForm<API.UserAddRequest>

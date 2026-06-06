@@ -8,8 +8,6 @@ import { Provider, useDispatch } from "react-redux";
 import { getLoginUserUsingGet } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
 import AccessLayout from "@/access/AccessLayout";
-import ACCESS_ENUM from "@/access/accessEnum";
-import HomePage from "@/app/page";
 
 /**
  * 执行初始化逻辑的布局（多封装一层）使用的是自定义高级组件

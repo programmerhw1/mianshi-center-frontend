@@ -1,3 +1,156 @@
+// "use client";
+// import { GithubFilled, LogoutOutlined } from "@ant-design/icons";
+// import { ProLayout } from "@ant-design/pro-components";
+// import { Dropdown, message } from "antd";
+// import React from "react";
+// import Image from "next/image";
+// import { usePathname, useRouter } from "next/navigation";
+// import Link from "next/link";
+// import GlobalFooter from "@/components/GlobalFooter";
+// import { menus } from "../../../config/menus";
+// import { useDispatch, useSelector } from "react-redux";
+// import { AppDispatch, RootState } from "@/stores";
+// import { userLogoutUsingPost } from "@/api/userController";
+// import { setLoginUser } from "@/stores/loginUser";
+// import { DEFAULT_USER } from "@/app/constants/user";
+// import SearchInput from "@/layouts/BasicLayout/components/SearchInput";
+// import "./index.css";
+//
+// interface Props {
+//   children: React.ReactNode;
+// }
+//
+// /**
+//  * 全局通用布局
+//  * @param children
+//  * @constructor
+//  */
+// export default function BasicLayout({ children }: Props) {
+//   const pathname = usePathname();
+//   // 当前登录用户
+//   const loginUser = useSelector((state: RootState) => state.loginUser);
+//   const dispatch = useDispatch<AppDispatch>();
+//   const router = useRouter();
+//
+//   /**
+//    * 用户注销
+//    */
+//   const userLogout = async () => {
+//     try {
+//       await userLogoutUsingPost();
+//       message.success("已退出登录");
+//       dispatch(setLoginUser(DEFAULT_USER));
+//       router.push("/user/login");
+//     } catch (e) {
+//       message.error("操作失败，" + e.message);
+//     }
+//   };
+//
+//   return (
+//     <div
+//       id="basicLayout"
+//       style={{
+//         height: "100vh",
+//         overflow: "auto",
+//       }}
+//     >
+//       <ProLayout
+//         title="面试鸭刷题平台"
+//         layout="top"
+//         logo={
+//           <Image
+//             src="/assets/logo.png"
+//             height={32}
+//             width={32}
+//             alt="面试鸭刷题网站 - 程序员鱼皮"
+//           />
+//         }
+//         location={{
+//           pathname,
+//         }}
+//         avatarProps={{
+//           src: loginUser.userAvatar || "/assets/logo.png",
+//           size: "small",
+//           title: loginUser.userName || "鱼皮鸭",
+//           render: (props, dom) => {
+//             if (!loginUser.id) {
+//               return (
+//                 <div
+//                   onClick={() => {
+//                     router.push("/user/login");
+//                   }}
+//                 >
+//                   {dom}
+//                 </div>
+//               );
+//             }
+//             return (
+//               <Dropdown
+//                 menu={{
+//                   items: [
+//                     {
+//                       key: "logout",
+//                       icon: <LogoutOutlined />,
+//                       label: "退出登录",
+//                     },
+//                   ],
+//                   onClick: async (event: { key: React.Key }) => {
+//                     const { key } = event;
+//                     if (key === "logout") {
+//                       userLogout();
+//                     }
+//                   },
+//                 }}
+//               >
+//                 {dom}
+//               </Dropdown>
+//             );
+//           },
+//         }}
+//         actionsRender={(props) => {
+//           if (props.isMobile) return [];
+//           return [
+//             <SearchInput key="search" />,
+//             <a
+//               key="github"
+//               href="https://github.com/liyupi/mianshiya-next"
+//               target="_blank"
+//             >
+//               <GithubFilled key="GithubFilled" />
+//             </a>,
+//           ];
+//         }}
+//         headerTitleRender={(logo, title, _) => {
+//           return (
+//             <a>
+//               {logo}
+//               {title}
+//             </a>
+//           );
+//         }}
+//         // 渲染底部栏
+//         footerRender={() => {
+//           return <GlobalFooter />;
+//         }}
+//         onMenuHeaderClick={(e) => console.log(e)}
+//         // 定义有哪些菜单
+//         menuDataRender={() => {
+//           // return getAccessibleMenus(loginUser, menus);
+//           return menus;
+//         }}
+//         // 定义了菜单项如何渲染
+//         menuItemRender={(item, dom) => (
+//           <Link href={item.path || "/"} target={item.target}>
+//             {dom}
+//           </Link>
+//         )}
+//       >
+//         {children}
+//       </ProLayout>
+//     </div>
+//   );
+// }
+
 "use client";
 import "./index.css";
 import {
@@ -12,13 +165,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Index from "@/components/GlobalFooter";
 import menus from "../../../config/menus";
-import { listQuestionBankVoByPageUsingPost } from "@/api/questionBankController";
 import { AppDispatch, RootState } from "@/stores";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutUsingPost } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
 import { DEFAULT_USER } from "@/app/constants/user";
 import { useRouter } from "next/navigation";
+import SearchInput from "@/layouts/BasicLayout/components/SearchInput";
 
 // const MenuCard = () => {
 //   const { token } = theme.useToken();
@@ -120,38 +273,41 @@ const Demo = ({ children }: { children?: React.ReactNode }) => {
         actionsRender={(props) => {
           if (props.isMobile) return [];
           return [
-            props.layout !== "side" && document.body.clientWidth > 1400 ? (
-              <div
-                key="SearchOutlined"
-                aria-hidden
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginInlineEnd: 24,
-                }}
-                onMouseDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-              >
-                <Input
-                  style={{
-                    borderRadius: 4,
-                    marginInlineEnd: 12,
-                    backgroundColor: "rgba(0,0,0,0.03)",
-                  }}
-                  prefix={
-                    <SearchOutlined
-                      style={{
-                        color: "rgba(0, 0, 0, 0.15)",
-                      }}
-                    />
-                  }
-                  placeholder="搜索方案"
-                  variant="borderless"
-                />
-              </div>
-            ) : undefined,
+            // props.layout !== "side" &&
+            // typeof document !== "undefined" &&
+            // document.body.clientWidth > 1400 ? (
+            //   <div
+            //     key="SearchOutlined"
+            //     aria-hidden
+            //     style={{
+            //       display: "flex",
+            //       alignItems: "center",
+            //       marginInlineEnd: 24,
+            //     }}
+            //     onMouseDown={(e) => {
+            //       e.stopPropagation();
+            //       e.preventDefault();
+            //     }}
+            //   >
+            //     <Input
+            //       style={{
+            //         borderRadius: 4,
+            //         marginInlineEnd: 12,
+            //         backgroundColor: "rgba(0,0,0,0.03)",
+            //       }}
+            //       prefix={
+            //         <SearchOutlined
+            //           style={{
+            //             color: "rgba(0, 0, 0, 0.15)",
+            //           }}
+            //         />
+            //       }
+            //       placeholder="搜索方案"
+            //       variant="borderless"
+            //     />
+            //   </div>
+            // ) : undefined,
+            <SearchInput key="search" />,
             <a
               key={"github"}
               href={"https://github.com/programmerhw1"}
@@ -198,12 +354,7 @@ const Demo = ({ children }: { children?: React.ReactNode }) => {
               {title}
             </button>
           );
-          if (
-            typeof document === "undefined" ||
-            document.body.clientWidth < 1400
-          ) {
-            return defaultDom;
-          }
+
           if (_.isMobile) return defaultDom;
           return (
             <>
@@ -214,7 +365,7 @@ const Demo = ({ children }: { children?: React.ReactNode }) => {
         }}
       >
         {children}
-        {JSON.stringify(loginUser)}
+        {/*{JSON.stringify(loginUser)}*/}
       </ProLayout>
     </div>
   );
@@ -224,9 +375,9 @@ interface Props {
   children?: React.ReactNode;
 }
 export default function BasicLayout({ children }: Props) {
-  listQuestionBankVoByPageUsingPost({}).then((res) => {
-    console.log(res);
-  });
+  // listQuestionBankVoByPageUsingPost({}).then((res) => {
+  //   console.log(res);
+  // });
   return (
     <div style={{ padding: 24 }}>
       <Demo> {children}</Demo>

@@ -153,13 +153,9 @@
 
 "use client";
 import "./index.css";
-import {
-  GithubFilled,
-  LogoutOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { GithubFilled, LogoutOutlined } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
-import { Dropdown, Input, message } from "antd";
+import { Dropdown, message } from "antd";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -170,7 +166,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogoutUsingPost } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
 import { DEFAULT_USER } from "@/app/constants/user";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SearchInput from "@/layouts/BasicLayout/components/SearchInput";
 
 // const MenuCard = () => {
@@ -194,7 +190,7 @@ import SearchInput from "@/layouts/BasicLayout/components/SearchInput";
 
 const Demo = ({ children }: { children?: React.ReactNode }) => {
   const loginUser = useSelector((state: RootState) => state.loginUser);
-  const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
+  const pathname = usePathname();
 
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();

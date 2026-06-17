@@ -41,8 +41,6 @@ const UserLoginPage: React.FC = (props) => {
     }
   };
 
-
-
   return (
     <div id="userLoginPage">
       <LoginForm<API.UserAddRequest>

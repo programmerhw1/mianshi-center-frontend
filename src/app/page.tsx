@@ -53,7 +53,7 @@ export default async function HomePage() {
       <Divider />
       <Flex justify="space-between" align="center">
         <Title level={3}> 最新题目</Title>
-        <Link href="/banks">查看更多</Link>;
+        <Link href="/banks">查看更多</Link>
       </Flex>
       {/*<div>题目列表</div>*/}
       {/*{JSON.stringify(questionList)}*/}
